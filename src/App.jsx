@@ -3,6 +3,8 @@ import { useState } from 'react'
 import './App.css'
 
 import ques from './data'
+import items from './data1';
+
 import SingleQuestion from './Question';
 
 
@@ -11,7 +13,39 @@ function App() {
   const [test, setTest] = useState(false)
   const [name, setName] = useState('')
   const [list, setList] = useState([])
+  const [menuItems, setMenuItems] = useState(items);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editID, setEditID] = useState(null);
   // const [info, setinfo] = useState(true)
+
+  const editItem = (id) => {
+    const specificItem = list.find((item) => item.id === id);
+    setIsEditing(true);
+    setEditID(id);
+    setName(specificItem.title);
+  };
+
+  const filterItem= (categItem) => {
+
+    if (categItem === 'all')
+    {
+      setMenuItems(items);
+      return;
+
+    }
+
+    const newItems = items.filter((item) => item.category === categItem);
+    setMenuItems(newItems);
+
+    
+    };
+  
+    const removeItem = (id)=>{
+
+      
+      setList(list.filter((item)=>item.id !== id));
+
+    };
 
   const handleSubmit = (e) => {
 
@@ -34,11 +68,12 @@ function App() {
       
       {test ? <p>edit</p> : <p>submit</p>}
 
-      {console.log(test)}
+    
 
     </button>
 
 
+    <h1><u>QNA</u></h1>
 
     {ques.map((ques)=>
         {
@@ -50,6 +85,7 @@ function App() {
         )}
 
 
+<h1><u>TO DO</u></h1>
 
     
 
@@ -58,7 +94,7 @@ function App() {
 
         <button type='submit'>
 
-          submit
+        {isEditing ? 'edit' : 'submit'}
         </button>
 
         
@@ -79,6 +115,9 @@ function App() {
           <article key={id}>
 
             <p>{title}</p>
+            <button onClick={()=> removeItem(id)}>delete</button>
+            <button onClick={()=> editItem(id)}>edit</button>
+
           </article>
 
         )
@@ -86,7 +125,39 @@ function App() {
     </div>
 
 
+<h1><u>MENU</u></h1>
 
+<div className="btns">
+
+  <button onClick={()=> filterItem('breakfast')}>BREAKFAST</button>
+  <button onClick={()=> filterItem('lunch')}>LUNCH</button>
+ 
+  <button onClick={()=> filterItem('shakes')}>SNACKS</button>
+  <button onClick={()=> filterItem('all')}>ALL</button>
+
+
+<div>
+
+ {console.log(menuItems)}
+
+  {menuItems.map((item)=>{
+
+    const {id,title,img,price ,desc} = item;
+
+    return(
+    <article key={id}>
+      <p>{title}</p>
+      <img src={img}  />
+      <p>{desc}</p>
+      <p>{price}</p>
+
+
+    </article>
+
+    )
+  })}
+</div>
+</div>
 
 
 
