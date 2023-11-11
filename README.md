@@ -11,5 +11,5 @@ This repository is solely based to learn react : 💻
 6. use effect hooks
 
 
-i'll be editing as i start adding new convcepts.
+i'll be editing as i start adding new concepts.
 
