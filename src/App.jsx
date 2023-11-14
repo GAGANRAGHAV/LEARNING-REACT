@@ -1,11 +1,12 @@
 import { useState } from 'react'
-
 import './App.css'
 
 import ques from './data'
 import items from './data1';
 
 import SingleQuestion from './Question';
+import Navb from './navbar';
+
 
 
 function App() {
@@ -63,6 +64,14 @@ function App() {
   return (
     <>
 
+    {/* <Navbar/> */}
+
+    <Navb/>
+
+    <hr></hr>
+
+    <h1>hello</h1>
+
 
     <button onClick={() => setTest(!test)} >
       
@@ -92,7 +101,7 @@ function App() {
     <form onSubmit={handleSubmit}>
     <input placeholder='add task...' value={name} onChange={(e)=>setName(e.target.value)}/>
 
-        <button type='submit'>
+        <button type='submit' onClick={()=>setIsEditing(!isEditing)}>
 
         {isEditing ? 'edit' : 'submit'}
         </button>
